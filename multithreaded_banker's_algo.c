@@ -1,7 +1,9 @@
-#include<unistd.h>
-#include<stdlib.h>
-#include<stdio.h>
-#include<stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <stdbool.h>
+#include <time.h>
 
 int main()
 {
@@ -11,6 +13,7 @@ int main()
   scanf("%d",&processes);
   printf("Enter number of resources: ");
   scanf("%d",&resources);
+ // int s[processes];
 int f[processes], ans[processes], ind = 0; 
   
 
@@ -49,7 +52,6 @@ for(int i=0;i<processes;i++)
        printf(" %d ", need[i][j]);
  
     }
-// printf("\nNeed of the processes: g%d  \n", &need[i][j]);
    
   }
 
@@ -61,30 +63,34 @@ for(int i=0;i<processes;i++)
     
       scanf("%d",&available[j]);
     }
-  }
-//SAFETY ALGORITHM
+  //**************
 
+
+    int s,i;
+  int  work[processes][resources],finish[processes],flag=1,safe_sequence[processes],index=0;
     
-  int  work[processes][resources],finish[processes],flag=1,safe_sequence[processes];
-    for(int i=0;i<processes;i++)
+for(int i=0;i<processes;i++)
     {   for(int j=0;j<resources;j++)
-        {work[processes][resources]=available[processes][resources];
+        {work[processes][resources]=available[resources];
         }
     }
     for(int i=0;i<processes;i++)
     {
         finish[i]=0;
     }
-    for(int i=0;i<processes;i++;)
+
+    for(int i=0;i<processes;i++)
 
     {
         for(int j=0;j<resources;j++)
         {
         if(finish[i]==0 && need[i][j]<=work[i][j])
-        { safesequence[i++]=i;
+        { safe_sequence[i++]=i;
             flag=0;
           work[i][j]=work[i][j]+allocation[i][j];
           finish[i]=1;
+	break;
+
         }
 
 
@@ -101,16 +107,14 @@ for(int i=0;i<processes;i++)
         printf("System in safe state\n");
     }
 
-}  
+  
 printf("Safe Sequence as follows");
 
-    for(int i<processes-1;i++)
-    {
-        printf(" P%d->",safe_sequence[i] );
-    
-printf(" P%d", safe_sequence[processes - 1]); 
-}
-}
-return 0;
+    for(int i=0;i<processes-1;i++)
+   	 printf(" P%d->",safe_sequence[i] );
+    printf(" P%d", safe_sequence[processes - 1]); 
+
+return (0);
+
 
 }
