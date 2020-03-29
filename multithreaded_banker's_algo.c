@@ -7,7 +7,7 @@ int r;
 	int Need[100][100];
 	int Work[1][100];
 	int n,m,pid,choice,p;
-void show(int x[][100],int n,int m){
+void show(int x[][100],int n,int m){    //Complexity O(n^2)
 	int i,j;
 	for(i=0;i<n;i++){
 		printf("\n");
@@ -18,7 +18,7 @@ void show(int x[][100],int n,int m){
 }
 
 //RESOURCE REQUEST ALGORITHM
-void *resource_request()
+void *resource_request()     //Complexity O(n^2)
 {   pid=pid-1;
 	int X[100][100],Y[100][100],Available[100][100],Allocation[100][100];
 	for(int i=0;i<100;i++)
@@ -68,7 +68,7 @@ for(int i=0;i<100;i++)
 }
 
 //SAFETY ALGORITHM
-int safetyAlgo(int Allocation[][100],int Need[][100],int Available[1][100],int n,int m,int a[]){
+int safetyAlgo(int Allocation[][100],int Need[][100],int Available[1][100],int n,int m,int a[]){ //Complexity O(n^2)
 
 	int i,j,k,x=0;
 	int Finish[100],Work[1][100];
@@ -103,7 +103,7 @@ int safetyAlgo(int Allocation[][100],int Need[][100],int Available[1][100],int n
 
 
 //BANKER'S ALGORITHM
-void get(int Allocation[][100],int Need[][100],int M[100][100],int Work[1][100],int *n,int *m){
+void get(int Allocation[][100],int Need[][100],int M[100][100],int Work[1][100],int *n,int *m){ //Complexity O(n^2)
 	int i,j;
 	printf("\n Enter total number of processes : ");
 	scanf("%d",n);
@@ -136,10 +136,10 @@ void get(int Allocation[][100],int Need[][100],int M[100][100],int Work[1][100],
 	show(Need,*n,*m);
 
 }
-
-int bankerAlgo(int Allocation[][100],int Need[][100],int Work[1][100],int n,int m){
+//Function using safety algorithm function
+int bankerAlgo(int Allocation[][100],int Need[][100],int Work[1][100],int n,int m){ //Complexity O(n^2)
 	int j,i,a[100];
-	j=safetyAlgo(Allocation,Need,Work,n,m,a);
+	j=safetyAlgo(Allocation,Need,Work,n,m,a);  //Complexity O(n^2)
 	if(j != 0 ){
 		printf("\n\n");
 		for(i=0;i<n;i++)
@@ -152,7 +152,7 @@ int bankerAlgo(int Allocation[][100],int Need[][100],int Work[1][100],int n,int 
 		
 	}
 }
-void create_thread(int n)
+void create_thread(int n) //Complexity O(n^2)
 {
 	for(int i=0;i<n;i++)
 	{	printf("\n Enter process number: ");
@@ -160,7 +160,7 @@ void create_thread(int n)
 		pthread_t pid;
 		pthread_create(&pid,NULL,resource_request,NULL);
 		pthread_join(pid,NULL);
-		int val=bankerAlgo(Allocation,Need,Work,n,m);
+		int val=bankerAlgo(Allocation,Need,Work,n,m); //Complexity O(n^2)
    if(val==0)
    {
 	   exit(0);
@@ -174,8 +174,8 @@ void create_thread(int n)
 int main(){
 
 	printf("\n MULTITHREADED DEADLOCK AVOIDANCE PROGRAM USING BANKER'S ALGORITHM\n");
-	get(Allocation,Need,Maximum,Work,&n,&m);
-	r=bankerAlgo(Allocation,Need,Work,n,m);
+	get(Allocation,Need,Maximum,Work,&n,&m); //Complexity O(n^2)
+	r=bankerAlgo(Allocation,Need,Work,n,m);  //Complexity O(n^2)
 	if(r !=0 ){
 		printf("\n Do you want make an additional request ? (1=Yes|0=No)");
 		scanf("%d",&choice);
